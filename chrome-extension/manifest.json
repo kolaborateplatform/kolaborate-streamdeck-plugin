@@ -1,17 +1,19 @@
 {
   "manifest_version": 3,
-  "name": "Kolaborate Google Meet Stream Deck Controller",
+  "name": "Google Meet Stream Deck Controller",
   "version": "1.0.0",
-  "description": "Control Google Meet from Stream Deck",
+  "description": "Control Google Meet from your Stream Deck",
   "permissions": [
     "tabs",
-    "nativeMessaging"
+    "activeTab",
+    "scripting"
   ],
   "host_permissions": [
     "https://meet.google.com/*"
   ],
   "background": {
-    "service_worker": "background.js"
+    "service_worker": "background.js",
+    "type": "module"
   },
   "content_scripts": [
     {
@@ -20,7 +22,8 @@
     }
   ],
   "icons": {
+    "16": "icons/icon16.png",
     "48": "icons/icon48.png",
     "128": "icons/icon128.png"
   }
-}
+} 

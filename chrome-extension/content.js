@@ -1,51 +1,19 @@
-// Google Meet control selectors
+// Selectors for Google Meet controls
 const SELECTORS = {
   MUTE_BUTTON: '[role="button"][aria-label*="microphone"]',
   VIDEO_BUTTON: '[role="button"][aria-label*="camera"]',
   HAND_BUTTON: '[role="button"][aria-label*="Raise hand"]',
-  CHAT_BUTTON: '[role="button"][aria-label*="chat"]',
-  REACTION_BUTTON: '[role="button"][aria-label*="Reactions"]',
-  LEAVE_BUTTON: '[role="button"][aria-label*="Leave call"]',
-  JOIN_BUTTON: '[role="button"][aria-label*="Join now"]'
+  LEAVE_BUTTON: '[role="button"][aria-label*="Leave call"]'
 };
 
-// Listen for messages from the background script
-chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-  console.log('Received message:', request);
-  
-  switch (request.action) {
-    case 'toggleMute':
-      toggleMute();
-      break;
-    case 'toggleVideo':
-      toggleVideo();
-      break;
-    case 'toggleHand':
-      toggleHand();
-      break;
-    case 'toggleChat':
-      toggleChat();
-      break;
-    case 'getState':
-      const state = getMeetingState();
-      sendResponse(state);
-      return true;
-    case 'toggleReaction':
-      toggleReaction(request.reactionType);
-      break;
-    case 'leaveMeeting':
-      leaveMeeting();
-      break;
-    case 'joinMeeting':
-      joinMeeting();
-      break;
-    case 'pasteMeetingLink':
-      pasteMeetingLink();
-      break;
-  }
-});
+// State tracking
+let state = {
+  isMuted: false,
+  isVideoOff: false,
+  isHandRaised: false
+};
 
-// Function to click a button if it exists
+// Helper function to click a button
 function clickButton(selector) {
   const button = document.querySelector(selector);
   if (button) {
@@ -55,73 +23,86 @@ function clickButton(selector) {
   return false;
 }
 
-// Control functions
-function toggleMute() {
-  return clickButton(SELECTORS.MUTE_BUTTON);
-}
-
-function toggleVideo() {
-  return clickButton(SELECTORS.VIDEO_BUTTON);
-}
-
-function toggleHand() {
-  return clickButton(SELECTORS.HAND_BUTTON);
-}
-
-function toggleChat() {
-  return clickButton(SELECTORS.CHAT_BUTTON);
-}
-
-function toggleReaction(reactionType) {
-  const button = document.querySelector(SELECTORS.REACTION_BUTTON);
+// Helper function to get button state
+function getButtonState(selector, stateIndicator) {
+  const button = document.querySelector(selector);
   if (button) {
-    button.click();
-    // Wait for reaction menu to appear
-    setTimeout(() => {
-      const reactionButton = document.querySelector(`[aria-label*="${reactionType}"]`);
-      if (reactionButton) {
-        reactionButton.click();
-        return true;
-      }
-    }, 100);
+    const ariaLabel = button.getAttribute('aria-label') || '';
+    return ariaLabel.toLowerCase().includes(stateIndicator);
   }
   return false;
 }
 
-function leaveMeeting() {
-  return clickButton(SELECTORS.LEAVE_BUTTON);
+// Update state and notify Stream Deck
+function updateState(newState) {
+  state = { ...state, ...newState };
+  chrome.runtime.sendMessage({
+    type: 'stateUpdate',
+    data: state
+  });
 }
 
-function joinMeeting() {
-  return clickButton(SELECTORS.JOIN_BUTTON);
-}
+// Handle messages from background script
+chrome.runtime.onMessage.addListener((message) => {
+  if (!message.action) return;
 
-function pasteMeetingLink() {
-  const meetingUrl = window.location.href;
-  navigator.clipboard.writeText(meetingUrl);
-  return true;
-}
+  switch (message.action) {
+    case 'toggleMute':
+      if (clickButton(SELECTORS.MUTE_BUTTON)) {
+        const isMuted = getButtonState(SELECTORS.MUTE_BUTTON, 'unmute');
+        updateState({ isMuted });
+      }
+      break;
 
-// Get the current state of microphone, camera, etc.
-function getMeetingState() {
-  const muteButton = document.querySelector(SELECTORS.MUTE_BUTTON);
-  const videoButton = document.querySelector(SELECTORS.VIDEO_BUTTON);
-  const handButton = document.querySelector(SELECTORS.HAND_BUTTON);
-  
-  return {
-    isMuted: muteButton?.getAttribute('aria-label')?.includes('Unmute') ?? false,
-    isVideoOff: videoButton?.getAttribute('aria-label')?.includes('Turn on') ?? false,
-    isHandRaised: handButton?.getAttribute('aria-pressed') === 'true' ?? false
-  };
-}
+    case 'toggleVideo':
+      if (clickButton(SELECTORS.VIDEO_BUTTON)) {
+        const isVideoOff = getButtonState(SELECTORS.VIDEO_BUTTON, 'turn on');
+        updateState({ isVideoOff });
+      }
+      break;
 
-// Observe DOM changes to handle dynamic updates
-const observer = new MutationObserver(() => {
-  const state = getMeetingState();
-  chrome.runtime.sendMessage({ type: 'stateUpdate', state });
+    case 'toggleHand':
+      if (clickButton(SELECTORS.HAND_BUTTON)) {
+        const isHandRaised = getButtonState(SELECTORS.HAND_BUTTON, 'lower');
+        updateState({ isHandRaised });
+      }
+      break;
+
+    case 'leaveMeeting':
+      clickButton(SELECTORS.LEAVE_BUTTON);
+      break;
+
+    case 'getMuteState':
+      const isMuted = getButtonState(SELECTORS.MUTE_BUTTON, 'unmute');
+      updateState({ isMuted });
+      break;
+
+    case 'getVideoState':
+      const isVideoOff = getButtonState(SELECTORS.VIDEO_BUTTON, 'turn on');
+      updateState({ isVideoOff });
+      break;
+
+    case 'getHandState':
+      const isHandRaised = getButtonState(SELECTORS.HAND_BUTTON, 'lower');
+      updateState({ isHandRaised });
+      break;
+  }
 });
 
-// Start observing once the meeting controls are present
+// Monitor DOM changes for control state changes
+const observer = new MutationObserver(() => {
+  const newState = {
+    isMuted: getButtonState(SELECTORS.MUTE_BUTTON, 'unmute'),
+    isVideoOff: getButtonState(SELECTORS.VIDEO_BUTTON, 'turn on'),
+    isHandRaised: getButtonState(SELECTORS.HAND_BUTTON, 'lower')
+  };
+
+  if (JSON.stringify(newState) !== JSON.stringify(state)) {
+    updateState(newState);
+  }
+});
+
+// Start observing once Google Meet controls are loaded
 function startObserving() {
   const controls = document.querySelector('[role="complementary"]');
   if (controls) {
@@ -129,10 +110,19 @@ function startObserving() {
       subtree: true,
       childList: true,
       attributes: true,
-      attributeFilter: ['aria-label', 'aria-pressed']
+      attributeFilter: ['aria-label']
     });
+    
+    // Get initial state
+    updateState({
+      isMuted: getButtonState(SELECTORS.MUTE_BUTTON, 'unmute'),
+      isVideoOff: getButtonState(SELECTORS.VIDEO_BUTTON, 'turn on'),
+      isHandRaised: getButtonState(SELECTORS.HAND_BUTTON, 'lower')
+    });
+  } else {
+    setTimeout(startObserving, 1000);
   }
 }
 
-// Initialize observation when the page loads
-startObserving();
+// Start monitoring when the page loads
+startObserving(); 

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>AI Content Output</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            color: #d8d8d8;
+            background: #2d2d2d;
+            margin: 0;
+            padding: 20px;
+            height: 100vh;
+            box-sizing: border-box;
+        }
+        #output {
+            width: 100%;
+            height: calc(100vh - 100px);
+            background: #1e1e1e;
+            border: 1px solid #3a3a3a;
+            border-radius: 4px;
+            padding: 15px;
+            margin-bottom: 20px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+        }
+        #copy-button {
+            padding: 8px 16px;
+            background: #007bff;
+            border: none;
+            border-radius: 4px;
+            color: white;
+            cursor: pointer;
+        }
+        #copy-button:hover {
+            background: #0056b3;
+        }
+        .image-output {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <div id="output"></div>
+    <button id="copy-button">Copy to Clipboard</button>
+    <script>
+        let currentContent = '';
+
+        window.addEventListener('message', (event) => {
+            const { content, type } = event.data;
+            currentContent = content;
+            
+            const outputDiv = document.getElementById('output');
+            if (type === 'image') {
+                outputDiv.innerHTML = `<img src="${content}" class="image-output" alt="Generated image">`;
+            } else {
+                outputDiv.textContent = content;
+            }
+        });
+
+        document.getElementById('copy-button').addEventListener('click', () => {
+            navigator.clipboard.writeText(currentContent);
+        });
+    </script>
+</body>
+</html> 
