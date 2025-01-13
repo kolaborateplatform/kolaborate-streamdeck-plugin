@@ -4,31 +4,27 @@
   "description": "Google Meet controls for Stream Deck",
   "main": "src/index.js",
   "scripts": {
-    "test": "jest --coverage",
-    "test:unit": "jest tests/unit",
-    "test:integration": "jest tests/integration",
-    "test:e2e": "jest tests/e2e",
-    "test:watch": "jest --watch",
-    "test:ci": "jest --ci --coverage --reporters='default' --reporters='jest-junit'",
-    "lint": "eslint .",
     "build": "webpack --mode=production",
-    "dev": "webpack --mode=development --watch"
+    "build:extension": "node scripts/build-extension.js",
+    "test": "jest",
+    "test:extension": "jest tests/extension",
+    "test:extension:watch": "jest tests/extension --watch",
+    "test:extension:debug": "node --inspect-brk node_modules/.bin/jest --runInBand tests/extension",
+    "dev": "webpack --mode=development --watch",
+    "dev:extension": "web-ext run --source-dir ./dist/extension",
+    "lint:extension": "eslint chrome-extension/",
+    "pack:extension": "cd dist/extension && zip -r ../kolaborate-meet-extension.zip ./*"
   },
   "jest": {
     "testEnvironment": "node",
     "setupFilesAfterEnv": ["<rootDir>/tests/setup.js"],
     "collectCoverageFrom": [
       "src/**/*.{js,jsx}",
-      "!src/propertyinspector/**",
+      "chrome-extension/**/*.js",
       "!**/node_modules/**"
     ],
-    "coverageThreshold": {
-      "global": {
-        "branches": 80,
-        "functions": 80,
-        "lines": 80,
-        "statements": 80
-      }
+    "moduleNameMapper": {
+      "^@/(.*)$": "<rootDir>/src/$1"
     }
   },
   "dependencies": {
@@ -44,12 +40,12 @@
     "eslint": "^8.50.0",
     "eslint-plugin-jest": "^27.4.0",
     "jest": "^29.7.0",
+    "jest-chrome": "^0.8.0",
     "jest-environment-jsdom": "^29.7.0",
-    "jest-junit": "^16.0.0",
-    "jest-websocket-mock": "^2.4.1",
-    "mock-socket": "^9.2.1",
+    "jest-webextension-mock": "^3.8.9",
     "puppeteer": "^21.3.1",
-    "supertest": "^6.3.3",
+    "sinon-chrome": "^3.0.1",
+    "web-ext": "^7.8.0",
     "webpack": "^5.88.2",
     "webpack-cli": "^5.1.4"
   }
