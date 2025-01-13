@@ -3,7 +3,10 @@ const SELECTORS = {
   MUTE_BUTTON: '[role="button"][aria-label*="microphone"]',
   VIDEO_BUTTON: '[role="button"][aria-label*="camera"]',
   HAND_BUTTON: '[role="button"][aria-label*="Raise hand"]',
-  CHAT_BUTTON: '[role="button"][aria-label*="chat"]'
+  CHAT_BUTTON: '[role="button"][aria-label*="chat"]',
+  REACTION_BUTTON: '[role="button"][aria-label*="Reactions"]',
+  LEAVE_BUTTON: '[role="button"][aria-label*="Leave call"]',
+  JOIN_BUTTON: '[role="button"][aria-label*="Join now"]'
 };
 
 // Listen for messages from the background script
@@ -27,6 +30,18 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
       const state = getMeetingState();
       sendResponse(state);
       return true;
+    case 'toggleReaction':
+      toggleReaction(request.reactionType);
+      break;
+    case 'leaveMeeting':
+      leaveMeeting();
+      break;
+    case 'joinMeeting':
+      joinMeeting();
+      break;
+    case 'pasteMeetingLink':
+      pasteMeetingLink();
+      break;
   }
 });
 
@@ -55,6 +70,36 @@ function toggleHand() {
 
 function toggleChat() {
   return clickButton(SELECTORS.CHAT_BUTTON);
+}
+
+function toggleReaction(reactionType) {
+  const button = document.querySelector(SELECTORS.REACTION_BUTTON);
+  if (button) {
+    button.click();
+    // Wait for reaction menu to appear
+    setTimeout(() => {
+      const reactionButton = document.querySelector(`[aria-label*="${reactionType}"]`);
+      if (reactionButton) {
+        reactionButton.click();
+        return true;
+      }
+    }, 100);
+  }
+  return false;
+}
+
+function leaveMeeting() {
+  return clickButton(SELECTORS.LEAVE_BUTTON);
+}
+
+function joinMeeting() {
+  return clickButton(SELECTORS.JOIN_BUTTON);
+}
+
+function pasteMeetingLink() {
+  const meetingUrl = window.location.href;
+  navigator.clipboard.writeText(meetingUrl);
+  return true;
 }
 
 // Get the current state of microphone, camera, etc.

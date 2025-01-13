@@ -55,6 +55,62 @@
       "SupportedInMultiActions": true,
       "Tooltip": "Toggle chat panel in Google Meet",
       "UUID": "com.kolaborate.googlemeet.chat"
+    },
+    {
+      "Icon": "images/actions/reaction",
+      "Name": "Quick Reaction",
+      "States": [
+        {
+          "Image": "images/states/reaction",
+          "TitleAlignment": "middle",
+          "FontSize": "16"
+        }
+      ],
+      "SupportedInMultiActions": true,
+      "Tooltip": "Send a quick reaction in Google Meet",
+      "UUID": "com.kolaborate.googlemeet.reaction"
+    },
+    {
+      "Icon": "images/actions/leave",
+      "Name": "Leave Meeting",
+      "States": [
+        {
+          "Image": "images/states/leave",
+          "TitleAlignment": "middle",
+          "FontSize": "16"
+        }
+      ],
+      "SupportedInMultiActions": true,
+      "Tooltip": "Leave the current Google Meet meeting",
+      "UUID": "com.kolaborate.googlemeet.leave"
+    },
+    {
+      "Icon": "images/actions/join",
+      "Name": "Join Meeting",
+      "States": [
+        {
+          "Image": "images/states/join",
+          "TitleAlignment": "middle",
+          "FontSize": "16"
+        }
+      ],
+      "SupportedInMultiActions": true,
+      "Tooltip": "Join the next Google Meet meeting",
+      "UUID": "com.kolaborate.googlemeet.join"
+    },
+    {
+      "Icon": "images/actions/link",
+      "Name": "Copy Meeting Link",
+      "States": [
+        {
+          "Image": "images/states/link",
+          "TitleAlignment": "middle",
+          "FontSize": "16"
+        }
+      ],
+      "SupportedInMultiActions": true,
+      "Tooltip": "Copy current meeting link to clipboard",
+      "UUID": "com.kolaborate.googlemeet.copylink"
     }
   ],
   "Author": "Kolaborate",

@@ -111,8 +111,12 @@ Our plugin provides a comprehensive set of features designed to enhance your vir
 A thoughtfully designed set of physical controls gives you instant access to essential meeting functions:
 - One-touch mute/unmute for immediate audio control
 - Video toggle with visual feedback
+- Quick reactions during meetings
 - Intuitive hand raise/lower functionality
+- Meeting link sharing with one click
 - Quick chat panel access
+- One-touch join meeting capability
+- Instant meeting leave functionality
 
 ### Security Features
 We've implemented multiple layers of security to protect your meetings:
@@ -128,6 +132,9 @@ The plugin is designed with user experience at its core:
 - Customizable settings via Property Inspector
 - Automatic reconnection capabilities
 - Robust error recovery
+- Visual feedback for all meeting controls
+- Instant state synchronization
+- Meeting status indicators
 
 ## Project Structure
 

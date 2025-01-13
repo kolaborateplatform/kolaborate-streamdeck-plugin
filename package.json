@@ -11,7 +11,7 @@
     "test:extension:watch": "jest tests/extension --watch",
     "test:extension:debug": "node --inspect-brk node_modules/.bin/jest --runInBand tests/extension",
     "dev": "webpack --mode=development --watch",
-    "dev:extension": "web-ext run --source-dir ./dist/extension",
+    "dev:extension": "web-ext run --source-dir ./dist/extension --target chromium",
     "lint:extension": "eslint chrome-extension/",
     "pack:extension": "cd dist/extension && zip -r ../kolaborate-meet-extension.zip ./*"
   },

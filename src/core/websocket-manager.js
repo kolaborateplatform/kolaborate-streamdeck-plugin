@@ -267,7 +267,9 @@ class WebSocketManager extends EventEmitter {
       'TOGGLE_HAND',
       'TOGGLE_CHAT',
       'JOIN_MEETING',
-      'LEAVE_MEETING'
+      'LEAVE_MEETING',
+      'TOGGLE_REACTION',
+      'PASTE_MEETING_LINK'
     ];
     return validActions.includes(action);
   }
