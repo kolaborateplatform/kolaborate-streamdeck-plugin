@@ -1,0 +1,134 @@
+/* Custom styles for Property Inspector */
+
+.status-indicator {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px;
+    border-radius: 4px;
+    background: var(--sdpi-background);
+}
+
+.status-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: var(--sdpi-color);
+}
+
+.status-dot.connected {
+    background-color: #4CAF50;
+}
+
+.status-dot.disconnected {
+    background-color: #f44336;
+}
+
+.status-dot.connecting {
+    background-color: #FFC107;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.4;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+/* Custom button styles */
+button.sdpi-item-value {
+    margin: 4px;
+    padding: 8px 16px;
+    border-radius: 4px;
+    border: 1px solid var(--sdpi-color);
+    background: var(--sdpi-background);
+    color: var(--sdpi-color);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+button.sdpi-item-value:hover {
+    background: var(--sdpi-color);
+    color: var(--sdpi-background);
+}
+
+button.sdpi-item-value:active {
+    transform: scale(0.98);
+}
+
+/* Input styles */
+input[type="text"].sdpi-item-value {
+    padding: 6px 8px;
+    border-radius: 4px;
+    border: 1px solid var(--sdpi-color);
+    background: var(--sdpi-background);
+    color: var(--sdpi-color);
+}
+
+input[type="text"].sdpi-item-value:focus {
+    outline: none;
+    border-color: var(--sdpi-focus);
+    box-shadow: 0 0 0 2px var(--sdpi-focus-shadow);
+}
+
+/* Checkbox styles */
+input[type="checkbox"].sdpi-item-value {
+    width: 18px;
+    height: 18px;
+    margin-right: 8px;
+}
+
+input[type="checkbox"].sdpi-item-value:checked {
+    background-color: var(--sdpi-focus);
+    border-color: var(--sdpi-focus);
+}
+
+/* Select styles */
+select.sdpi-item-value {
+    padding: 6px 24px 6px 8px;
+    border-radius: 4px;
+    border: 1px solid var(--sdpi-color);
+    background: var(--sdpi-background);
+    color: var(--sdpi-color);
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23007CB2%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+    background-repeat: no-repeat;
+    background-position: right 8px top 50%;
+    background-size: 12px auto;
+}
+
+/* Textarea styles */
+textarea.sdpi-item-value {
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid var(--sdpi-color);
+    background: var(--sdpi-background);
+    color: var(--sdpi-color);
+    resize: vertical;
+}
+
+/* Group styles */
+.sdpi-item-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 8px;
+    border-radius: 4px;
+    background: var(--sdpi-background);
+}
+
+/* Heading styles */
+.sdpi-heading {
+    font-size: 14px;
+    font-weight: 600;
+    margin: 16px 0 8px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid var(--sdpi-color);
+    color: var(--sdpi-color);
+}

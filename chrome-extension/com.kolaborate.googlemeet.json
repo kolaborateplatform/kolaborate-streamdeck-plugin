@@ -1,0 +1,9 @@
+{
+  "name": "com.kolaborate.googlemeet",
+  "description": "Google Meet Stream Deck Controller",
+  "path": "HOST_PATH_PLACEHOLDER",
+  "type": "stdio",
+  "allowed_origins": [
+    "chrome-extension://EXTENSION_ID_PLACEHOLDER/"
+  ]
+}

@@ -1,0 +1,68 @@
+{
+  "Actions": [
+    {
+      "Icon": "images/actionIcon",
+      "Name": "Mute Toggle",
+      "States": [
+        {
+          "Image": "images/mute",
+          "TitleAlignment": "middle",
+          "FontSize": "16"
+        }
+      ],
+      "SupportedInMultiActions": true,
+      "Tooltip": "Toggle Google Meet mute",
+      "UUID": "com.kolaborate.googlemeet.mute"
+    },
+    {
+      "Icon": "images/actionIcon",
+      "Name": "Video Toggle",
+      "States": [
+        {
+          "Image": "images/video",
+          "TitleAlignment": "middle",
+          "FontSize": "16"
+        }
+      ],
+      "SupportedInMultiActions": true,
+      "Tooltip": "Toggle Google Meet video",
+      "UUID": "com.kolaborate.googlemeet.video"
+    },
+    {
+      "Icon": "images/actionIcon",
+      "Name": "Hand Raise",
+      "States": [
+        {
+          "Image": "images/hand",
+          "TitleAlignment": "middle",
+          "FontSize": "16"
+        }
+      ],
+      "SupportedInMultiActions": true,
+      "Tooltip": "Toggle raise hand in Google Meet",
+      "UUID": "com.kolaborate.googlemeet.hand"
+    }
+  ],
+  "Author": "Kolaborate",
+  "Name": "Google Meet Controls",
+  "Description": "Control Google Meet from your Stream Deck",
+  "Icon": "images/pluginIcon",
+  "URL": "https://kolaborate.africa",
+  "Version": "1.0.0",
+  "CodePath": "dist/plugin.js",
+  "PropertyInspectorPath": "propertyinspector/index.html",
+  "OS": [
+    {
+      "Platform": "mac",
+      "MinimumVersion": "10.11"
+    },
+    {
+      "Platform": "windows",
+      "MinimumVersion": "10"
+    }
+  ],
+  "SDKVersion": 2,
+  "Software": {
+    "MinimumVersion": "4.1"
+  }
+}
