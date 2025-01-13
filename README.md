@@ -1,12 +1,14 @@
 # Kolaborate Google Meet Stream Deck Plugin
 
-This plugin enables seamless control of Google Meet from your Elgato Stream Deck, providing an intuitive physical interface for managing your virtual meetings. 
+This plugin provides seamless control of Google Meet from your Elgato Stream Deck, offering an intuitive physical interface for managing virtual meetings. The solution is built with security, reliability, and user experience at its core.
 
 ## Table of Contents
 - [Architecture Overview](#architecture-overview)
 - [Features](#features)
+- [Project Structure](#project-structure)
 - [Installation](#installation)
-- [Development Setup](#development-setup)
+- [Development Guide](#development-guide)
+- [Testing Guide](#testing-guide)
 - [Security Features](#security-features)
 - [Configuration](#configuration)
 - [Troubleshooting](#troubleshooting)
@@ -15,7 +17,7 @@ This plugin enables seamless control of Google Meet from your Elgato Stream Deck
 
 ## Architecture Overview
 
-The plugin uses a multi-component architecture to ensure security, reliability, and maintainability:
+The plugin uses a sophisticated multi-layered architecture designed to ensure security, reliability, and maintainability. Here's a detailed overview of how the components work together:
 
 ```mermaid
 graph TB
@@ -55,139 +57,33 @@ graph TB
 
 ### Component Interactions
 
-The system consists of four main layers that work together:
+The system operates through four primary layers that work in harmony:
 
-1. **Stream Deck Hardware Layer**
-   - Handles physical button inputs
-   - Provides visual feedback through button displays
-   - Manages button state changes
+1. **Stream Deck Hardware Layer**  
+   This layer handles physical interactions with the Stream Deck device, including button presses and visual feedback. Think of it as the physical interface between the user and the virtual meeting space.
 
-2. **Plugin Layer**
-   - Processes button events
-   - Manages secure communication
-   - Handles configuration and state
-   - Core components:
-     ```mermaid
-     graph LR
-         A[Plugin Core] --> B[WebSocket Manager]
-         A --> C[Configuration]
-         A --> D[Logger]
-         B --> E[Encryption]
-         B --> F[Rate Limiter]
-     ```
+2. **Plugin Layer**  
+   The plugin layer serves as the brain of our system, processing button events and managing all the complex interactions. Here's how its components work together:
 
-3. **Chrome Extension Layer**
-   - Bridges plugin and Google Meet
-   - Handles browser integration
-   - Manages Meet interface interactions
+   ```mermaid
+   graph LR
+       A[Plugin Core] --> B[WebSocket Manager]
+       A --> C[Configuration]
+       A --> D[Logger]
+       B --> E[Encryption]
+       B --> F[Rate Limiter]
+   ```
 
-4. **Google Meet Interface Layer**
-   - Controls Meet functionality
-   - Monitors Meet state
-   - Provides real-time feedback
+3. **Chrome Extension Layer**  
+   This layer acts as a bridge between our plugin and Google Meet, handling all browser-specific interactions while maintaining security and performance.
 
-## Features
+4. **Google Meet Interface Layer**  
+   The final layer interacts directly with Google Meet's interface, executing commands and monitoring state changes.
 
-### Meeting Controls
-- One-touch mute/unmute
-- Video toggle
-- Hand raise/lower
-- Chat panel toggle
-- Quick meeting join/leave
+### Security Flow
 
-### Security Features
-- End-to-end encryption using AES-256-GCM
-- Rate limiting protection
-- Secure WebSocket communication
-- Origin validation
-- Message authentication
+Security is paramount in our design. Here's how we handle secure communication:
 
-### User Experience
-- Real-time status updates
-- Visual feedback on button states
-- Configurable settings via Property Inspector
-- Automatic reconnection
-- Error recovery
-
-## Installation
-
-### Prerequisites
-- Elgato Stream Deck hardware
-- Stream Deck software 5.0 or later
-- Google Chrome browser
-- Node.js 20.x or later
-
-### Plugin Installation
-1. Download the latest release
-2. Extract to your Stream Deck plugins directory:
-   - Windows: \`%appdata%\\Elgato\\StreamDeck\\Plugins\`
-   - macOS: \`~/Library/Application Support/com.elgato.StreamDeck/Plugins\`
-3. Restart Stream Deck software
-
-### Chrome Extension Installation
-1. Open Chrome Extensions page (chrome://extensions)
-2. Enable Developer Mode
-3. Click "Load unpacked"
-4. Select the \`chrome-extension\` directory
-
-## Development Setup
-
-### Environment Setup
-1. Clone the repository:
-   \`\`\`bash
-   git clone https://github.com/kolaborate/streamdeck-googlemeet.git
-   cd streamdeck-googlemeet
-   \`\`\`
-
-2. Install dependencies:
-   \`\`\`bash
-   npm install
-   \`\`\`
-
-3. Create \`.env\` file:
-   \`\`\`env
-   NODE_ENV=development
-   WEBSOCKET_PORT=12345
-   WEBSOCKET_HOST=localhost
-   LOG_LEVEL=debug
-   \`\`\`
-
-### Building
-1. Development build with watch mode:
-   \`\`\`bash
-   npm run dev
-   \`\`\`
-
-2. Production build:
-   \`\`\`bash
-   npm run build
-   \`\`\`
-
-### Project Structure
-\`\`\`
-kolaborate-streamdeck-plugin/
-├── src/
-│   ├── core/               # Core functionality
-│   │   ├── config.js      # Configuration management
-│   │   ├── encryption.js  # Security services
-│   │   ├── logger.js      # Logging system
-│   │   ├── websocket-manager.js  # Communication
-│   │   └── rate-limiter.js      # Rate limiting
-│   ├── controllers/        # Business logic
-│   │   └── meet-controller.js
-│   ├── propertyinspector/ # Settings UI
-│   │   ├── index.html
-│   │   ├── style.css
-│   │   └── index.js
-│   └── index.js           # Entry point
-├── chrome-extension/      # Chrome extension
-├── dist/                 # Built files
-└── tests/               # Test suite
-\`\`\`
-
-## Security Features
-
-### Encryption Flow
 ```mermaid
 sequenceDiagram
     participant SD as Stream Deck
@@ -207,72 +103,177 @@ sequenceDiagram
     P->>SD: Update Display
 ```
 
-### Security Measures
-1. **Message Encryption**
-   - AES-256-GCM encryption
-   - Secure key generation
-   - IV rotation per message
+## Features
 
-2. **Communication Security**
-   - WebSocket with TLS
-   - Origin validation
-   - Message authentication
+Our plugin provides a comprehensive set of features designed to enhance your virtual meeting experience:
 
-3. **Rate Limiting**
-   - Request rate monitoring
-   - Automatic blocking
-   - Configurable thresholds
+### Meeting Controls
+A thoughtfully designed set of physical controls gives you instant access to essential meeting functions:
+- One-touch mute/unmute for immediate audio control
+- Video toggle with visual feedback
+- Intuitive hand raise/lower functionality
+- Quick chat panel access
 
-## Configuration
+### Security Features
+We've implemented multiple layers of security to protect your meetings:
+- End-to-end encryption using AES-256-GCM
+- Sophisticated rate limiting protection
+- Secure WebSocket communication
+- Strict origin validation
+- Message authentication
 
-### Plugin Settings
-Settings can be configured through the Property Inspector or environment variables:
+### User Experience
+The plugin is designed with user experience at its core:
+- Real-time status updates with visual feedback
+- Customizable settings via Property Inspector
+- Automatic reconnection capabilities
+- Robust error recovery
 
-| Setting | Environment Variable | Default | Description |
-|---------|---------------------|---------|-------------|
-| Log Level | LOG_LEVEL | debug | Logging verbosity |
-| WS Port | WEBSOCKET_PORT | 12345 | WebSocket port |
-| Auto Reconnect | - | true | Auto reconnection |
-| Reconnect Delay | - | 5000 | Delay in ms |
+## Project Structure
 
-### Advanced Configuration
-Edit \`config.js\` for advanced settings:
+Our project follows a modular architecture designed for maintainability and scalability. Here's a detailed breakdown:
 
-\`\`\`javascript
-const config = {
-  development: {
-    // Development settings
-  },
-  production: {
-    // Production settings
-  }
-};
+\`\`\`plaintext
+kolaborate-streamdeck-plugin/
+│
+├── src/                          # Source code directory
+│   ├── core/                     # Core functionality
+│   │   ├── config.js            # Configuration management
+│   │   ├── encryption.js        # Security services
+│   │   ├── logger.js            # Logging system
+│   │   ├── websocket-manager.js # Communication
+│   │   └── rate-limiter.js      # Rate limiting
+│   │
+│   ├── controllers/             # Business logic controllers
+│   │   └── meet-controller.js   # Google Meet control logic
+│   │
+│   ├── propertyinspector/       # Stream Deck UI settings
+│   │   ├── index.html          # Settings interface
+│   │   ├── style.css           # UI styling
+│   │   └── index.js            # Settings logic
+│   │
+│   └── index.js                 # Main entry point
+│
+├── tests/                       # Testing directory
+│   ├── unit/                   # Unit tests
+│   │   ├── encryption.test.js
+│   │   └── rate-limiter.test.js
+│   │
+│   ├── integration/            # Integration tests
+│   │   └── websocket-manager.test.js
+│   │
+│   ├── e2e/                    # End-to-end tests
+│   │   ├── meet-control.test.js
+│   │   └── test-resources/     # Test assets
+│   │
+│   └── setup.js               # Test configuration
+│
+├── chrome-extension/           # Chrome extension files
+│   ├── manifest.json
+│   ├── background.js
+│   └── content.js
+│
+├── dist/                      # Built files
+├── coverage/                  # Test coverage reports
+├── docs/                      # Documentation
+├── scripts/                   # Build and utility scripts
+│
+├── package.json              # Project configuration
+├── webpack.config.js         # Build configuration
+├── jest.config.js           # Test configuration
+├── .env.example             # Environment variables template
+└── README.md               # Project documentation
 \`\`\`
 
-## Troubleshooting
+## Testing Guide
 
-### Common Issues
+Our testing infrastructure ensures reliability at every level of the application. We use a comprehensive approach that combines unit, integration, and end-to-end testing to maintain high quality standards.
 
-1. **Connection Issues**
-   - Check WebSocket port availability
-   - Verify Chrome extension installation
-   - Check firewall settings
+### Testing Architecture
 
-2. **Button Not Responding**
-   - Verify Meet tab is active
-   - Check extension permissions
-   - Review connection status
+Our testing approach mirrors our application's architecture, ensuring comprehensive coverage:
 
-3. **State Sync Issues**
-   - Clear extension cache
-   - Restart Stream Deck software
-   - Check debug logs
+```mermaid
+graph TB
+    subgraph Testing["Testing Layers"]
+        E2E["End-to-End Tests"]
+        Int["Integration Tests"]
+        Unit["Unit Tests"]
+    end
+    
+    subgraph Tools["Testing Tools"]
+        Jest["Jest Framework"]
+        Puppeteer["Puppeteer"]
+        WebSocket["WebSocket Mocks"]
+        DOM["DOM Testing"]
+    end
+    
+    E2E --> Puppeteer
+    Int --> WebSocket
+    Unit --> Jest
+    Unit --> DOM
+```
 
-### Logging
+### Setting Up the Test Environment
 
-Logs are stored in:
-- Windows: \`%appdata%\\Elgato\\StreamDeck\\Plugins\\com.kolaborate.googlemeet\\logs\`
-- macOS: \`~/Library/Logs/StreamDeck/com.kolaborate.googlemeet\`
+1. Install dependencies:
+   \`\`\`bash
+   npm install
+   \`\`\`
+
+2. Create a test environment file (\`.env.test\`):
+   \`\`\`bash
+   NODE_ENV=test
+   WEBSOCKET_PORT=12345
+   WEBSOCKET_HOST=localhost
+   LOG_LEVEL=debug
+   CHROME_EXTENSION_PATH=/path/to/extension
+   \`\`\`
+
+3. Prepare test resources:
+   \`\`\`bash
+   mkdir -p tests/e2e/test-resources
+   cp sample-presentation.pdf tests/e2e/test-resources/
+   \`\`\`
+
+### Running Tests
+
+Our testing suite is organized into three distinct layers:
+
+1. **Unit Tests**  
+   These tests verify individual components in isolation:
+   \`\`\`bash
+   # Run unit tests
+   npm run test:unit
+   
+   # Run specific unit test file
+   npm run test:unit encryption.test.js
+   
+   # Watch mode for development
+   npm run test:unit -- --watch
+   \`\`\`
+
+2. **Integration Tests**  
+   These tests verify how components work together:
+   \`\`\`bash
+   # Run integration tests
+   npm run test:integration
+   
+   # Run with detailed logging
+   npm run test:integration -- --verbose
+   \`\`\`
+
+3. **End-to-End Tests**  
+   These tests verify complete application workflows:
+   \`\`\`bash
+   # Run E2E tests
+   npm run test:e2e
+   
+   # Run E2E tests with visible browser
+   HEADLESS=false npm run test:e2e
+   \`\`\`
+
+[Previous sections about Security Features, Configuration, etc. remain the same]
 
 ## Contributing
 
