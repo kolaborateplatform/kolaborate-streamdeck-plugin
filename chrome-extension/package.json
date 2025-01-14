@@ -1,0 +1,17 @@
+{
+  "name": "google-meet-streamdeck-extension",
+  "module": "src/index.ts",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "bun build ./src/background/index.ts --outdir=dist --watch",
+    "build": "bun build ./src/background/index.ts ./src/content/index.ts --outdir=dist",
+    "type-check": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/chrome": "^0.0.260",
+    "@types/node": "^20.11.5",
+    "bun-types": "latest",
+    "typescript": "^5.3.3"
+  }
+}

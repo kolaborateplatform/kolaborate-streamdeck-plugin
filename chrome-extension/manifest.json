@@ -12,13 +12,13 @@
     "https://meet.google.com/*"
   ],
   "background": {
-    "service_worker": "background.js",
+    "service_worker": "dist/background/index.js",
     "type": "module"
   },
   "content_scripts": [
     {
       "matches": ["https://meet.google.com/*"],
-      "js": ["content.js"]
+      "js": ["dist/content/index.js"]
     }
   ],
   "icons": {
