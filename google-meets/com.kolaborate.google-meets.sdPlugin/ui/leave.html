@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Leave Meeting Settings</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="sdpi-wrapper">
+        <div class="sdpi-item">
+            <div class="sdpi-item-label">Connection Status</div>
+            <div class="sdpi-item-value">
+                <span class="status-indicator" id="connection-status"></span>
+                <span id="status-text">Checking connection...</span>
+            </div>
+        </div>
+
+        <div class="sdpi-item">
+            <div class="sdpi-item-label">Instructions</div>
+            <div class="sdpi-item-value">
+                Press the button to leave the current Google Meet meeting.
+                This action cannot be undone.
+            </div>
+        </div>
+
+        <div class="sdpi-item">
+            <div class="sdpi-item-label">Warning</div>
+            <div class="sdpi-item-value error">
+                This will immediately disconnect you from the current meeting.
+                Make sure to say goodbye first!
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let websocket = null;
+        let pluginUUID = null;
+
+        function connectElgatoStreamDeckSocket(inPort, inPluginUUID, inRegisterEvent, inInfo) {
+            pluginUUID = inPluginUUID;
+            websocket = new WebSocket("ws://127.0.0.1:" + inPort);
+
+            websocket.onopen = function() {
+                const json = {
+                    event: inRegisterEvent,
+                    uuid: inPluginUUID
+                };
+                websocket.send(JSON.stringify(json));
+                updateStatus(true);
+            };
+
+            websocket.onclose = function() {
+                updateStatus(false);
+            };
+
+            websocket.onerror = function() {
+                updateStatus(false);
+            };
+        }
+
+        function updateStatus(connected) {
+            const indicator = document.getElementById('connection-status');
+            const statusText = document.getElementById('status-text');
+            
+            indicator.className = 'status-indicator ' + (connected ? 'connected' : 'disconnected');
+            statusText.textContent = connected ? 'Connected' : 'Disconnected';
+            statusText.className = connected ? 'success' : 'error';
+        }
+    </script>
+</body>
+</html> 

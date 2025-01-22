@@ -1,0 +1,40 @@
+.sdpi-wrapper {
+    padding: 1rem;
+}
+
+.sdpi-item {
+    margin-bottom: 1rem;
+}
+
+.sdpi-item-label {
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.sdpi-item-value {
+    color: #969696;
+}
+
+.sdpi-item-value.error {
+    color: #ff3b30;
+}
+
+.sdpi-item-value.success {
+    color: #34c759;
+}
+
+.status-indicator {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 8px;
+}
+
+.status-indicator.connected {
+    background-color: #34c759;
+}
+
+.status-indicator.disconnected {
+    background-color: #ff3b30;
+} 

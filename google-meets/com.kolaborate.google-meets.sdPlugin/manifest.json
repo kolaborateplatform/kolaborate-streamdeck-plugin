@@ -1,0 +1,95 @@
+{
+	"Name": "Google Meet Controls",
+	"Version": "0.1.0.0",
+	"Author": "kolaborate",
+	"Actions": [
+		{
+			"Name": "Microphone Control",
+			"UUID": "com.kolaborate.google-meets.microphone",
+			"Icon": "imgs/actions/microphone/icon",
+			"Tooltip": "Toggle microphone mute/unmute in Google Meet",
+			"PropertyInspectorPath": "ui/microphone.html",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/microphone/key",
+					"TitleAlignment": "middle"
+				}
+			]
+		},
+		{
+			"Name": "Camera Control",
+			"UUID": "com.kolaborate.google-meets.camera",
+			"Icon": "imgs/actions/camera/icon",
+			"Tooltip": "Toggle camera on/off in Google Meet",
+			"PropertyInspectorPath": "ui/camera.html",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/camera/key",
+					"TitleAlignment": "middle"
+				}
+			]
+		},
+		{
+			"Name": "Hand Raise",
+			"UUID": "com.kolaborate.google-meets.hand",
+			"Icon": "imgs/actions/hand/icon",
+			"Tooltip": "Raise/lower hand in Google Meet",
+			"PropertyInspectorPath": "ui/hand.html",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/hand/key",
+					"TitleAlignment": "middle"
+				}
+			]
+		},
+		{
+			"Name": "Leave Meeting",
+			"UUID": "com.kolaborate.google-meets.leave",
+			"Icon": "imgs/actions/leave/icon",
+			"Tooltip": "Leave the current Google Meet meeting",
+			"PropertyInspectorPath": "ui/leave.html",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/leave/key",
+					"TitleAlignment": "middle"
+				}
+			]
+		}
+	],
+	"Category": "Google Meet Controls",
+	"CategoryIcon": "imgs/plugin/category-icon",
+	"CodePath": "bin/plugin.js",
+	"Description": "Control your Google Meet calls directly from your Stream Deck",
+	"Icon": "imgs/plugin/marketplace",
+	"SDKVersion": 2,
+	"Software": {
+		"MinimumVersion": "6.4"
+	},
+	"OS": [
+		{
+			"Platform": "mac",
+			"MinimumVersion": "10.15"
+		},
+		{
+			"Platform": "windows",
+			"MinimumVersion": "10"
+		}
+	],
+	"Nodejs": {
+		"Version": "20",
+		"Debug": "enabled"
+	},
+	"UUID": "com.kolaborate.google-meets"
+}

@@ -1,0 +1,47 @@
+{
+  "projectContext": {
+    "type": "Stream Deck Plugin",
+    "framework": "Elgato Stream Deck SDK",
+    "language": "TypeScript",
+    "description": "This is a Stream Deck plugin project using the official Elgato SDK with TypeScript and modern development practices"
+  },
+  
+  "codeStandards": {
+    "typescript": {
+      "strict": true,
+      "useTypes": true,
+      "errorHandling": "Always use try/catch blocks and proper error logging",
+      "stateManagement": "Use dedicated state management classes",
+      "performance": "Implement debouncing and throttling where appropriate"
+    },
+    "streamDeck": {
+      "actions": "Each action should be in its own file under src/actions/",
+      "manifest": "Keep manifest.json in sync with action implementations",
+      "settings": "Use type-safe settings management",
+      "feedback": "Provide visual feedback using showOk/showAlert"
+    }
+  },
+
+  "commonPatterns": {
+    "actionClass": {
+      "template": "Use @action decorator and extend SingletonAction",
+      "methods": [
+        "onKeyDown - Handle key presses with debouncing",
+        "onWillAppear - Initialize state and visuals",
+        "performAction - Core action logic",
+        "loadSettings - Load saved settings",
+        "updateVisuals - Update button appearance"
+      ]
+    }
+  },
+
+  "fileStructure": {
+    "src": {
+      "actions": "Individual Stream Deck actions",
+      "ui": "Property Inspector UI components",
+      "plugin.ts": "Plugin entry point"
+    },
+    "assets": "Plugin images and resources",
+    "types": "TypeScript type definitions"
+  }
+}
