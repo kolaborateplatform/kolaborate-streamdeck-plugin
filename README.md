@@ -55,7 +55,12 @@ Instantly exit from your current Google Meet meeting:
    bun install -g @elgato-stream-deck/cli
    ```
 
-6. Link the plugin to Stream Deck:
+6. Navigate to the plugin directory:
+   ```bash
+   cd com.kolaborate.google-meets.sdPlugin
+   ```
+
+7. Link the plugin to Stream Deck:
    ```bash
    streamdeck link
    ```

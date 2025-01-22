@@ -6,7 +6,7 @@
 		{
 			"Name": "Microphone Control",
 			"UUID": "com.kolaborate.google-meets.microphone",
-			"Icon": "imgs/actions/microphone/icon",
+			"Icon": "imgs/actions/microphone/icon@1x.png",
 			"Tooltip": "Toggle microphone mute/unmute in Google Meet",
 			"PropertyInspectorPath": "ui/microphone.html",
 			"Controllers": [
@@ -14,15 +14,21 @@
 			],
 			"States": [
 				{
-					"Image": "imgs/actions/microphone/key",
-					"TitleAlignment": "middle"
+					"Image": "imgs/actions/microphone/key_0@1x.png",
+					"TitleAlignment": "middle",
+					"Name": "Muted"
+				},
+				{
+					"Image": "imgs/actions/microphone/key_1@1x.png",
+					"TitleAlignment": "middle",
+					"Name": "Unmuted"
 				}
 			]
 		},
 		{
 			"Name": "Camera Control",
 			"UUID": "com.kolaborate.google-meets.camera",
-			"Icon": "imgs/actions/camera/icon",
+			"Icon": "imgs/actions/camera/icon@1x.png",
 			"Tooltip": "Toggle camera on/off in Google Meet",
 			"PropertyInspectorPath": "ui/camera.html",
 			"Controllers": [
@@ -30,15 +36,21 @@
 			],
 			"States": [
 				{
-					"Image": "imgs/actions/camera/key",
-					"TitleAlignment": "middle"
+					"Image": "imgs/actions/camera/key_0@1x.png",
+					"TitleAlignment": "middle",
+					"Name": "Camera Off"
+				},
+				{
+					"Image": "imgs/actions/camera/key_1@1x.png",
+					"TitleAlignment": "middle",
+					"Name": "Camera On"
 				}
 			]
 		},
 		{
 			"Name": "Hand Raise",
 			"UUID": "com.kolaborate.google-meets.hand",
-			"Icon": "imgs/actions/hand/icon",
+			"Icon": "imgs/actions/hand/icon@1x.png",
 			"Tooltip": "Raise/lower hand in Google Meet",
 			"PropertyInspectorPath": "ui/hand.html",
 			"Controllers": [
@@ -46,15 +58,21 @@
 			],
 			"States": [
 				{
-					"Image": "imgs/actions/hand/key",
-					"TitleAlignment": "middle"
+					"Image": "imgs/actions/hand/key_0@1x.png",
+					"TitleAlignment": "middle",
+					"Name": "Hand Lowered"
+				},
+				{
+					"Image": "imgs/actions/hand/key_1@1x.png",
+					"TitleAlignment": "middle",
+					"Name": "Hand Raised"
 				}
 			]
 		},
 		{
 			"Name": "Leave Meeting",
 			"UUID": "com.kolaborate.google-meets.leave",
-			"Icon": "imgs/actions/leave/icon",
+			"Icon": "imgs/actions/leave/icon@1x.png",
 			"Tooltip": "Leave the current Google Meet meeting",
 			"PropertyInspectorPath": "ui/leave.html",
 			"Controllers": [
@@ -62,17 +80,18 @@
 			],
 			"States": [
 				{
-					"Image": "imgs/actions/leave/key",
-					"TitleAlignment": "middle"
+					"Image": "imgs/actions/leave/key@1x.png",
+					"TitleAlignment": "middle",
+					"Name": "Leave Meeting"
 				}
 			]
 		}
 	],
 	"Category": "Google Meet Controls",
-	"CategoryIcon": "imgs/plugin/category-icon",
+	"CategoryIcon": "imgs/plugin/category-icon@1x.png",
 	"CodePath": "bin/plugin.js",
 	"Description": "Control your Google Meet calls directly from your Stream Deck",
-	"Icon": "imgs/plugin/marketplace",
+	"Icon": "imgs/plugin/marketplace@1x.png",
 	"SDKVersion": 2,
 	"Software": {
 		"MinimumVersion": "6.4"
